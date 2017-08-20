@@ -4,7 +4,16 @@ Alpha Infection is a multiplayer game where players attempt to join and
 stop a rampant computer virus from taking over a space station and driving
 it directly into the Earth.
 
-## Rules
+<!-- vim-markdown-toc GFM -->
+* [Gameplay and Rules](#gameplay-and-rules)
+* [Servers](#servers)
+* [Clients](#clients)
+* [Installation](#installation)
+* [LICENSE](#license)
+
+<!-- vim-markdown-toc -->
+
+## Gameplay and Rules
 Currently, they're being developed, but baseline is available in [NOTES.md](docs/NOTES.md)
 
 ## Servers
