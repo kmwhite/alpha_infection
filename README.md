@@ -14,7 +14,7 @@ it directly into the Earth.
 <!-- vim-markdown-toc -->
 
 ## Gameplay and Rules
-Currently, they're being developed, but baseline is available in [NOTES.md](docs/NOTES.md)
+Currently, they're being developed, but baseline is available in [NOTES](docs/NOTES)
 
 ## Servers
 This Project provides the Server component of the system. It will have to probably implement
