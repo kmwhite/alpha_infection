@@ -22,21 +22,26 @@ Components:
 	  - FIXME_DEFINE_DAMAGE_CALCULATION_ALGORITHM
       * AlphaInfection (AI)
         - ATTACKER
+          - Picks a location on TARGET
+          - Shoots
+          - Does not have to be in the same WING as the TARGET
         - ATTACKEE
+          - Randomly chooses two SHIELD locations
+          - If HIT then damaged
   Cartography:
     Where the individual pickups and consumables are located:
       * 3x Weapons that have MODIFIER behaviors on Player experience
-        - WEAPON_LOC_TOP, found in a ROOM_CLASS_1 map location
+        - LASER_MIC, found in a ENGINEERING map location
             MODIFIER: Allows you to listen to the SECRET CODE conversations
             between AI and other Players.
-        - WEAPON_LOC_LEFT, found in a ROOM_CLASS_2 map location
+        - SONIC_DAMPENER, found in a MEDICAL map location
             MODIFIER: Add an additional sheld when in combat
-        - WEAPON_LOC_RIGHT, found in a ROOM_CLASS_3 map location
+        - GUIDANCE_CHIP, found in a SCIENCE map location
             MODIFIER: Enables usage of PROBE by Player
       * KeyCards
-        - ROOM_CLASS_1
-        - ROOM_CLASS_2
-        - ROOM_CLASS_3
+        - ROOM_CLASS_1: Engineering
+        - ROOM_CLASS_2: Medical
+        - ROOM_CLASS_3: Science Labs
       * Probe
         - A directable android that can search independently of the
           player, but still well within their turn
