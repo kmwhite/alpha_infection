@@ -1,5 +1,6 @@
-#include "SDL.h"
-#include "./alpha_infection.h"
+#include <SDL.h>
+#include <stdio.h>
+#include <stdbool.h>
 
 bool AI_initRenderer() {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {

@@ -1,7 +1,6 @@
-//Using SDL and standard IO
 #include <SDL.h>
 #include <stdio.h>
-#include "./alpha_infection.c"
+#include "alpha_infection.h"
 
 // Main app Launch
 int main(int argc, char const * argv[]) {
