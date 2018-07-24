@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
 
 #include <SDL2/SDL.h>
@@ -15,7 +16,7 @@ const int AI_WINDOW_HEIGHT = 480;
 
 bool AI_init() {
 	// Initialize SDL
-	if (SDL_Init(SDL_INIT_TIMER|SDL_INIT_VIDEO) < 0) {
+	if (SDL_Init(SDL_INIT_TIMER|SDL_INIT_VIDEO|SDL_INIT_AUDIO) < 0) {
 		printf("[error] SDL failed initialization! SDL_Error: %s\n", SDL_GetError());
 		return false;
 	}
@@ -66,15 +67,22 @@ bool AI_init() {
 	return true;
 }
 
-void AI_loadMenu() {
+void AI_loadMenu(void) {
+	// Input Event
 	SDL_Event event;
-	SDL_Texture * menuBg = NULL;
-	SDL_Color color = { 0x00, 0x00, 0x00 };
-	SDL_Surface * textSurface = TTF_RenderText_Solid(gFont, AI_WINDOW_TITLE, color);
+
+	// Menu Variables
+	SDL_Color textColor = { 0x00, 0x00, 0x00 };
+	SDL_Surface * textSurface = TTF_RenderText_Solid(gFont, AI_WINDOW_TITLE, textColor);
 	SDL_Texture * textTexture = SDL_CreateTextureFromSurface(gRenderer, textSurface);
+	SDL_Texture * menuBg = IMG_LoadTexture(gRenderer, "./assets/menu/bg.jpg");
 	int textWidth = 0;
 	int textHeight = 0;
+
+	// Get dimensions of the textTexture (textWidth and textHeight)
 	SDL_QueryTexture(textTexture, NULL, NULL, &textWidth, &textHeight);
+
+	// Create a placement rectangle defining where to put the textTexture
 	SDL_Rect textPlacement = {
 		(AI_WINDOW_WIDTH - textWidth) / 2, // X-start
 		(AI_WINDOW_HEIGHT / 8), // Y-start
@@ -82,17 +90,43 @@ void AI_loadMenu() {
 		textHeight
 	};
 
-    menuBg = IMG_LoadTexture(gRenderer, "./assets/menu/bg.jpg");
-    while (1) {
-        SDL_RenderCopy(gRenderer, menuBg, NULL, NULL);
-		SDL_RenderCopy(gRenderer, textTexture, NULL, &textPlacement);
-        SDL_RenderPresent(gRenderer);
+	// Setup for Audio Playback
+	SDL_AudioSpec wavSpec;
+	Uint32 wavLength;
+	Uint8 * wavBuffer;
+	SDL_AudioDeviceID deviceId = 0;
+
+	// Start playing background music
+	if (SDL_LoadWAV("./assets/menu/bg.wav", &wavSpec, &wavBuffer, &wavLength) == NULL) {
+		printf("[error] Wav file could not be loaded\n");
+	}
+	deviceId = SDL_OpenAudioDevice(NULL, 0, &wavSpec, NULL, SDL_AUDIO_ALLOW_ANY_CHANGE);
+	if (deviceId == 0) {
+		printf("[error] Failed to open audio: %s\n", SDL_GetError());
+	} else {
+		// open audio device
+		int success = SDL_QueueAudio(deviceId, wavBuffer, wavLength);
+		if (success == 0) {
+			SDL_PauseAudioDevice(deviceId, 0);
+		} else {
+			printf("[error] Failed to queue music!\n");
+			printf("[info] Recv %d, expecting %d\n", success, 0);
+		}
+	}
+
+    SDL_RenderCopy(gRenderer, menuBg, NULL, NULL);
+	SDL_RenderCopy(gRenderer, textTexture, NULL, &textPlacement);
+    SDL_RenderPresent(gRenderer);
+	// TODO: Fix crappy event loop 
+    while (true) {
 		if (SDL_PollEvent(&event) && event.type == SDL_QUIT) {
 			printf("Received SDL_QUIT event\n");
     		break;
 		}
     }
 
+	SDL_CloseAudioDevice(deviceId);
+	SDL_FreeWAV(wavBuffer);
     SDL_DestroyTexture(menuBg);
 	SDL_DestroyTexture(textTexture);
 	SDL_FreeSurface(textSurface);
@@ -112,5 +146,6 @@ void AI_shutDown() {
 	// Quit SDL
 	TTF_Quit();
 	IMG_Quit();
+	SDL_AudioQuit();
 	SDL_Quit();
 }
