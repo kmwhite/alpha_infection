@@ -14,7 +14,7 @@ const char * AI_WINDOW_TITLE = "AlphaInfection";
 const int AI_WINDOW_WIDTH = 640;
 const int AI_WINDOW_HEIGHT = 480;
 
-bool AI_init() {
+bool _sdl_init(void) {
 	// Initialize SDL
 	if (SDL_Init(SDL_INIT_TIMER|SDL_INIT_VIDEO|SDL_INIT_AUDIO) < 0) {
 		printf("[error] SDL failed initialization! SDL_Error: %s\n", SDL_GetError());
@@ -25,9 +25,14 @@ bool AI_init() {
 	if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
 		printf("[warning] Linear texture filtering not enabled!" );
 	}
-		
+
+	return true;
+}
+
+bool AI_init(SDL_Window * window) {
+	_sdl_init();
 	// Create window
-	gWindow = SDL_CreateWindow(
+	window = SDL_CreateWindow(
 		AI_WINDOW_TITLE,
 		SDL_WINDOWPOS_UNDEFINED,
 		SDL_WINDOWPOS_UNDEFINED,
@@ -35,13 +40,15 @@ bool AI_init() {
 		AI_WINDOW_HEIGHT,
 		SDL_WINDOW_SHOWN
 	);
-	if (gWindow == NULL) {
+	if (window == NULL) {
 		printf("[error] Window could not be created! SDL_Error: %s\n", SDL_GetError());
 		return false;
+	} else {
+		printf("[debug] WINDOW IS NOT NULL: %s\n", SDL_GetWindowTitle(window));
 	}
 
 	// Create renderer
-	gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_SOFTWARE);
+	gRenderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
 	if (gRenderer == NULL) {
 		printf("[error] Renderer could not be created! SDL Error: %s\n", SDL_GetError());
 		return false;
@@ -133,15 +140,14 @@ void AI_loadMenu(void) {
 	menuBg = NULL;
 }
 
-void AI_shutDown() {
+void AI_shutDown(SDL_Window * window) {
 	TTF_CloseFont(gFont);
 	gFont = NULL;
 
 	SDL_DestroyRenderer(gRenderer);
 	gRenderer = NULL;
 
-	SDL_DestroyWindow(gWindow);
-	gWindow = NULL;
+	SDL_DestroyWindow(window);
 
 	// Quit SDL
 	TTF_Quit();
