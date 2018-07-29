@@ -1,7 +1,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include "alpha_infection.h"
-#include "logging.h"
+#include "log.h"
 #include "config.h"
 
 // The renderer we'll be rendering with
@@ -31,11 +31,11 @@ void _ai_gui_init(void) {
 	SDL_Window * aiWindow = NULL;
 
 	if (AI_init(aiWindow)) {
-		ai_logDebug("passed AI_init");
+		log_debug("passed AI_init");
 		if (aiWindow == NULL) {
-			ai_logDebug("window was NULL");
+			log_debug("window was NULL");
 		} else {
-			ai_logDebug("window was not NULL");
+			log_debug("window was not NULL");
 		}
 		AI_loadMenu();
 		SDL_Delay(2500);

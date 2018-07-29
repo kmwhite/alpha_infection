@@ -1,4 +1,4 @@
-#include "logging.h"
+#include "log.h"
 
 void ai_sndEnumerateDevices(void) {
 	int i;
@@ -7,11 +7,11 @@ void ai_sndEnumerateDevices(void) {
 	    const char* driver_name = SDL_GetAudioDriver(i);
 
 	    if (SDL_AudioInit(driver_name)) {
-	        debug("[debug] Audio driver failed to initialize: %s\n", driver_name);
+	        log_debug("Audio driver failed to initialize: %s\n", driver_name);
 	        continue;
 	    } else {
-			printf("[debug] Initialized audio driver: %s\n", driver_name);
-			printf("[debug] * Audio device %d: %s\n", i, SDL_GetAudioDeviceName(i, 0));
+			log_debug("Initialized audio driver: %s\n", driver_name);
+			log_debug("* Audio device %d: %s\n", i, SDL_GetAudioDeviceName(i, 0));
 		}
 	}
 }
