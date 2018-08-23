@@ -1,3 +1,0 @@
-[submodule "sdl2-cmake-scripts"]
-	path = sdl2-cmake-scripts
-	url = git@github.com:tcbrindle/sdl2-cmake-scripts.git

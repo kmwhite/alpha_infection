@@ -9,8 +9,7 @@ enable_testing()
 
 set(CMAKE_MODULE_PATH
         ${CMAKE_MODULE_PATH}
-        "${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules"
-        "${CMAKE_CURRENT_SOURCE_DIR}/sdl2-cmake-scripts")
+        "${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules")
 
 find_package(LibConfuse REQUIRED)
 find_package(SDL2 REQUIRED)
