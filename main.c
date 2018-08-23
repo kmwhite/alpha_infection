@@ -8,12 +8,14 @@
 SDL_Renderer * gRenderer = NULL;
 // Font to write with
 TTF_Font *gFont = NULL;
+// Config Settings
+cfg_t *cfg = NULL;
 
 void _ai_gui_init(void);
 
 // Main app Launch
 int main(int argc, char const * argv[]) {
-	cfg_t *cfg = ai_cfgLoad();
+	cfg = ai_cfgLoad();
 
 	fprintf(stdout, "Welcome to the fight, %s.\n", cfg_getstr(cfg, "name"));
 	fprintf(stderr, "[debug] Setting log_level to %s\n", cfg_getstr(cfg, "log_level"));
