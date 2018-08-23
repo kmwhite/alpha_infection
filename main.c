@@ -23,7 +23,7 @@ int main(int argc, char const * argv[]) {
 	// Disable GUI starts for engine build
 	_ai_gui_init();
 
-    cfg_free(cfg);
+	cfg_free(cfg);
 
 	return 0;
 };
