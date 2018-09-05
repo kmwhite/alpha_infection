@@ -4,7 +4,7 @@
 #include "log.h"
 #include "config.h"
 
-// The renderer we'll be rendering with
+// The renderer we'll be render	ing with
 SDL_Renderer * gRenderer = NULL;
 // Font to write with
 TTF_Font *gFont = NULL;
@@ -20,10 +20,7 @@ int main(int argc, char const * argv[]) {
 	fprintf(stdout, "Welcome to the fight, %s.\n", cfg_getstr(cfg, "name"));
 	fprintf(stderr, "[debug] Setting log_level to %s\n", cfg_getstr(cfg, "log_level"));
 
-	// Disable GUI starts for engine build
-	_ai_gui_init();
-
-	cfg_free(cfg);
+	ai_cfgUnload(cfg);
 
 	return 0;
 };
