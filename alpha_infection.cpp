@@ -59,7 +59,7 @@ bool AI_init(SDL_Window * window) {
 	int sdlImageFlags = IMG_INIT_JPG;
 	if (!(IMG_Init(sdlImageFlags) & sdlImageFlags)) {
 		printf("[error] SDL_image initialization failed! SDL_image Error: %s\n", IMG_GetError() );
-        return false;
+		return false;
 	}
 
 	// True-Type Fonts
@@ -121,20 +121,20 @@ void AI_loadMenu(void) {
 		}
 	}
 
-    SDL_RenderCopy(gRenderer, menuBg, NULL, NULL);
+	SDL_RenderCopy(gRenderer, menuBg, NULL, NULL);
 	SDL_RenderCopy(gRenderer, textTexture, NULL, &textPlacement);
-    SDL_RenderPresent(gRenderer);
-	// TODO: Fix crappy event loop 
-    while (true) {
+	SDL_RenderPresent(gRenderer);
+	// TODO: Fix crappy event loop
+	while (true) {
 		if (SDL_PollEvent(&event) && event.type == SDL_QUIT) {
 			printf("Received SDL_QUIT event\n");
-    		break;
+			break;
 		}
-    }
+	}
 
 	SDL_CloseAudioDevice(deviceId);
 	SDL_FreeWAV(wavBuffer);
-    SDL_DestroyTexture(menuBg);
+	SDL_DestroyTexture(menuBg);
 	SDL_DestroyTexture(textTexture);
 	SDL_FreeSurface(textSurface);
 	menuBg = NULL;

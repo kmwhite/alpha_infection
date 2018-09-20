@@ -5,8 +5,8 @@
 #include <stdlib.h>
 
 const char * ai_utilGetHomeDir(void) {
-    const char *homeEnvVar = "HOME";
-    char * homeDir;
-    homeDir = getenv(homeEnvVar);
-    return homeDir;
+	const char *homeEnvVar = "HOME";
+	char * homeDir;
+	homeDir = getenv(homeEnvVar);
+	return homeDir;
 }
