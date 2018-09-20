@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0.0)
 project(AlphaInfection VERSION 0.1.0)
 
 
-set(CMAKE_C_FLAGS "-DLOG_USE_COLOR")
+set(CMAKE_CXX_FLAGS "-DLOG_USE_COLOR")
 
 include(CTest)
 enable_testing()
@@ -22,13 +22,13 @@ include_directories(
         ${SDL2_TTF_INCLUDE_DIR}
         ${LIBCONFUSE_INCLUDE_DIR}       )
 
-add_library(aiCore STATIC alpha_infection.c)
-add_library(aiConfig STATIC config.c)
-add_library(aiLogging STATIC log.c)
-add_library(aiUtils STATIC utils.c)
+add_library(aiCore STATIC alpha_infection.cpp)
+add_library(aiConfig STATIC config.cpp)
+add_library(aiLogging STATIC log.cpp)
+add_library(aiUtils STATIC utils.cpp)
 
 
-add_executable(AlphaInfection main.c)
+add_executable(AlphaInfection main.cpp)
 target_link_libraries(AlphaInfection
                         aiCore
                         aiConfig
