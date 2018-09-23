@@ -30,11 +30,11 @@ void _ai_gui_init(void) {
 	SDL_Window * aiWindow = NULL;
 
 	if (AI_init(aiWindow)) {
-		log_debug("passed AI_init");
+		ai_logDebug("passed AI_init");
 		if (aiWindow == NULL) {
-			log_debug("window was NULL");
+			ai_logDebug("window was NULL");
 		} else {
-			log_debug("window was not NULL");
+			ai_logDebug("window was not NULL");
 		}
 		AI_loadMenu();
 		SDL_Delay(2500);

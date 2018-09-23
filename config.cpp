@@ -39,7 +39,7 @@ char * ai_cfgFile(void) {
  */
 cfg_t * ai_cfgLoad(void) {
 	const char * configPath = ai_cfgFile();
-	log_debug("Loading: %s", configPath);
+	ai_logDebug("Loading: %s", configPath);
 
 	cfg_opt_t opts[] = {
 		CFG_STR("log_level", "debug", CFGF_NONE),
@@ -50,7 +50,7 @@ cfg_t * ai_cfgLoad(void) {
 	localConfig = cfg_init(opts, CFGF_NONE);
 
 	if (cfg_parse(localConfig, configPath) == CFG_PARSE_ERROR) {
-		log_error("Error parsing config file!");
+		ai_logError("Error parsing config file!");
 		return NULL;
 	}
 
@@ -62,10 +62,10 @@ int ai_cfgUnload(cfg_t * cfgResource) {
 
 	result = cfg_free(cfgResource);
 	if (result != 0) {
-		log_error("Unable to unload config! Error %d", result);
+		ai_logError("Unable to unload config! Error %d", result);
 		// TODO: Check into libconfuse for error messages here
 	} else {
-		log_info("Successfully unload configuration.");
+		ai_logInfo("Successfully unload configuration.");
 		cfgResource = NULL;
 	}
 
@@ -74,7 +74,7 @@ int ai_cfgUnload(cfg_t * cfgResource) {
 
 int ai_cfgSave(cfg_t * cfgResource) {
 	const char * configPath = ai_cfgFile();
-	log_debug("Saving: %s", configPath);
+	ai_logDebug("Saving: %s", configPath);
 
 	// TODO: overwrite the cfgResource here
 
