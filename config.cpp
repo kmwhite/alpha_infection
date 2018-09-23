@@ -11,10 +11,10 @@
  * Scope: Private (not in config.h)
  * Params: None
  * Return: char ptr
- * 
+ *
  * Description: Determine the proper file path for accessing the
  * AlphaInfection configuration file.
- * 
+ *
  */
 char * ai_cfgFile(void) {
 	const char * configName = ".airc";
@@ -33,9 +33,9 @@ char * ai_cfgFile(void) {
 
 /* ai_cfgLoad
  *
- * 
- * 
- * 
+ *
+ *
+ *
  */
 cfg_t * ai_cfgLoad(void) {
 	const char * configPath = ai_cfgFile();
