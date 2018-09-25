@@ -1,6 +1,7 @@
 # App Related
 build/**
 logs/**
+*.sw[po]
 .tags
 
 # Cmake Files
