@@ -12,6 +12,12 @@ set colorcolumn=116
 highlight OverLength ctermbg=darkgray guisp=darkgray
 match OverLength /\%117v.\+/
 
+"" Expose more things in NerdTree
+" Show dot-prefixed files
+let NERDTreeShowHidden=1
+" Hide object and linker files
+let NERDTreeIgnore=['\.o$', '\.a$', '\~$']
+
 " Strip Whitespace at end of lines
 fun! StripTrailingWhitespace()
     %s/\s\+$//e
