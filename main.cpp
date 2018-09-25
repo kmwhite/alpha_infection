@@ -1,6 +1,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include "alpha_infection.h"
+#include "sound.h"
 #include "log.h"
 #include "config.h"
 
@@ -17,8 +18,7 @@ void _ai_gui_init(void);
 int main(int argc, char const * argv[]) {
 	cfg = ai_cfgLoad();
 
-	fprintf(stdout, "Welcome to the fight, %s.\n", cfg_getstr(cfg, "name"));
-	fprintf(stderr, "[debug] Setting log_level to %s\n", cfg_getstr(cfg, "log_level"));
+	ai_sndEnumerateDevices();
 
 	ai_cfgUnload(cfg);
 
