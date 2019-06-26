@@ -17,8 +17,17 @@ void _ai_gui_init(void);
 // Main app Launch
 int main(int argc, char const * argv[]) {
 	cfg = ai_cfgLoad();
+	int logLevel = cfg_getint(cfg, "log_level");
+	ai_logDebug("Setting log_level to %d", logLevel);
 
 	ai_sndEnumerateDevices();
+	// ai_gfxEnumerateResolutions();
+
+	// load menu
+	//  * new game
+	//  * load game
+	//  * settings
+	//  * credits
 
 	ai_cfgUnload(cfg);
 
