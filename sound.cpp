@@ -45,18 +45,22 @@ int ai_sndPlayMusic(std::string asset_path) {
 	// Start playing background music
 	if (SDL_LoadWAV(asset_path.c_str(), &wavSpec, &wavBuffer, &wavLength) == NULL) {
 		ai_logError("Wav file could not be loaded");
+		return AI_SND_ERRNOASSET;
 	}
 	deviceId = SDL_OpenAudioDevice(NULL, (int)isCapture, &wavSpec, NULL, SDL_AUDIO_ALLOW_ANY_CHANGE);
 	if (deviceId == 0) {
 		ai_logError("Failed to open audio: %s", SDL_GetError());
+		return AI_SND_ERRNODEV;
 	} else {
 		// open audio device
 		int success = SDL_QueueAudio(deviceId, wavBuffer, wavLength);
 		if (success == 0) {
 			SDL_PauseAudioDevice(deviceId, (int)pauseOn);
+			return AI_SND_SUCCESS;
 		} else {
 			ai_logError("Failed to queue music!");
 			ai_logInfo("Recv %d, expecting %d", success, 0);
+			return AI_SND_ERRNOQUEUE;
 		}
 	}
 }
