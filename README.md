@@ -12,7 +12,9 @@ Copy-Paste Ready Command:
 
     sudo apt-get install \
         libsdl2{,-net,-ttf,-mixer,-gfx,-image}-dev \
-        cmake libconfuse-dev doxygen
+        cmake libconfuse-dev doxygen \
+        clang-8{,-doc} clang-{tools,tidy}-8 lldb-8
+
 
 Explanations:
 
@@ -22,6 +24,8 @@ Explanations:
  * `cmake` - Alpha Infection's build system
  * `libconfuse-dev` - The configuration parsing library
  * `doxygen` - Code documentation tooling
+ * `clang-8{,-doc} clang-{tools,tidy}-8 lldb-8` - CLang compiler tools for building the app
+
 
 # Thanks!
  * [rxi](https://github.com/rxi/log.c)
