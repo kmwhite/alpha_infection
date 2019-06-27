@@ -7,6 +7,8 @@
 
 // The renderer we'll be render	ing with
 SDL_Renderer * gRenderer = NULL;
+SDL_Window * gWindow = NULL;
+
 // Font to write with
 TTF_Font *gFont = NULL;
 // Config Settings
@@ -21,6 +23,9 @@ int main(int argc, char const * argv[]) {
 	ai_logDebug("Setting log_level to %d", logLevel);
 
 	ai_sndEnumerateDevices();
+	AI_init(gWindow);
+	AI_loadMenu();
+	AI_shutDown(gWindow);
 	// ai_gfxEnumerateResolutions();
 
 	// load menu
