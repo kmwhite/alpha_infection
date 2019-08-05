@@ -1,5 +1,3 @@
-#include <stdbool.h>
-
 #include <SDL2/SDL.h>
 
 // The renderer we'll be rendering with
