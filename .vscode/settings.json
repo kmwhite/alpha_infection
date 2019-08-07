@@ -2,6 +2,7 @@
     "cmake.configureOnOpen": true,
     "C_Cpp.default.configurationProvider": "vector-of-bool.cmake-tools",
     "files.associations": {
-        "sdl.h": "c"
+        "sdl.h": "c",
+        "iostream": "cpp"
     }
 }

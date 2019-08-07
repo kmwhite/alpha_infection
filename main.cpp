@@ -1,58 +1,38 @@
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
-#include "alpha_infection.h"
-#include "sound.h"
-#include "log.h"
-#include "config.h"
+#include <iostream>
+#include <libconfig.h>
 
-// The renderer we'll be render	ing with
-SDL_Renderer * gRenderer = NULL;
-SDL_Window * gWindow = NULL;
+namespace AI {
+    class Player {
+        // Access specifier
+        public:
 
-// Font to write with
-TTF_Font *gFont = NULL;
-// Config Settings
-cfg_t *cfg = NULL;
+            // Data Members
+            std::string name;
 
-void _ai_gui_init(void);
+            // Member Functions()
+            void printname() {
+                std::cout << "Player name is: " << name;
+            }
+    };
 
-// Main app Launch
-int main(int argc, char const * argv[]) {
-	cfg = ai_cfgLoad();
-	int logLevel = cfg_getint(cfg, "log_level");
-	ai_logDebug("Setting log_level to %d", logLevel);
+    class Game {
+        public:
 
-	ai_sndEnumerateDevices();
-	AI_init(gWindow);
-	AI_loadMenu();
-	AI_shutDown(gWindow);
-	// ai_gfxEnumerateResolutions();
+        Player player;
+        cfg_t configuration;
 
-	// load menu
-	//  * new game
-	//  * load game
-	//  * settings
-	//  * credits
+    };
+}
 
-	ai_cfgUnload(cfg);
+int main() {
+    AI::Player player;
 
-	return 0;
-};
+    // accessing data member
+    player.name = "Abhi";
 
-void _ai_gui_init(void) {
-	// The window we'll be rendering to
-	SDL_Window * aiWindow = NULL;
+    // accessing member function
+    player.printname();
 
-	if (AI_init(aiWindow)) {
-		ai_logDebug("passed AI_init");
-		if (aiWindow == NULL) {
-			ai_logDebug("window was NULL");
-		} else {
-			ai_logDebug("window was not NULL");
-		}
-		AI_loadMenu();
-		SDL_Delay(2500);
-		AI_shutDown(aiWindow);
-		aiWindow = NULL;
-	}
-};
+    return 0;
+}
+
