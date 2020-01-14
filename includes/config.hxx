@@ -1,5 +1,6 @@
 #define AI_CONFIG_NAME ".alpha_infection.cfg"
 
+#include <iostream>
 #include <libconfig.h++>
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_io.hpp>

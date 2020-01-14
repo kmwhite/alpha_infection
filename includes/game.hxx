@@ -1,4 +1,4 @@
-#include <iostream>
+#include "config.hxx"
 
 namespace ai {
     class Game {
