@@ -9,15 +9,19 @@ namespace ai {
         public:
             // Constructor
             Game() {
-                _initialize_game();
-                _initialize_cfg();
+                if (_initialize_game() && _initialize_cfg()) {
+                    std::cout << "Constructing Game(infection:"
+                              << aiId
+                              << ", home: "
+                              << home
+                              << ")."
+                              << std::endl;
 
-                std::cout << "Constructing Game(infection:"
-                          << aiId
-                          << ", home: "
-                          << home
-                          << ")."
-                          << std::endl;
+                    _initialize_ui();
+                } else {
+                    std::cout << "Failure to initialize!"
+                              << std::endl;
+                }
             }
 
             ~Game() {
@@ -36,6 +40,7 @@ namespace ai {
             // Prototypes
             bool _initialize_game(void);
             bool _initialize_cfg(void);
+            bool _initialize_ui(void);
 
     };
 }

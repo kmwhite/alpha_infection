@@ -34,3 +34,7 @@ bool ai::Game::_initialize_cfg(void) {
 
     return true;
 };
+
+bool ai::Game::_initialize_ui(void) {
+    return false;
+};
