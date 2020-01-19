@@ -18,17 +18,18 @@ set(CMAKE_MODULE_PATH
 	${CMAKE_MODULE_PATH}
 	"${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules")
 
+find_package(Boost 1.70 REQUIRED)
 find_package(Config++ REQUIRED)
 
 include_directories("includes"
+	${Boost_INCLUDE_DIR}
 	${CONFIG++_INCLUDE_DIR})
 
 add_executable(AlphaInfection src/main.cxx)
-add_library(aiConfig SHARED src/config.cxx)
 add_library(aiGame SHARED src/game.cxx)
 target_link_libraries(AlphaInfection
-	aiConfig
 	aiGame
+	${Boost_LIBRARIES}
 	${CONFIG++_LIBRARY})
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
