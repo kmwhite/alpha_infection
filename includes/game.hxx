@@ -5,6 +5,9 @@ namespace ai {
         public:
             // Constructor
             Game() {
+                if ( cfg.load() ) {
+                } else {
+                };
             }
 
         private:

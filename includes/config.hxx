@@ -37,5 +37,6 @@ namespace ai {
         private:
             std::string home;
             std::string cfgId;
+            libconfig::Config config;
     };
 }

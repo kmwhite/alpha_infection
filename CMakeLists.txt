@@ -6,10 +6,10 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build)
 
 # set the C++14 standard
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS OFF)
-set(CMAKE_CXX_FLAGS "-DLOG_USE_COLOR")
+# set(CMAKE_CXX_FLAGS "-DLOG_USE_COLOR")
 
 include(CTest)
 enable_testing()
@@ -24,8 +24,10 @@ include_directories("includes"
 	${CONFIG++_INCLUDE_DIR})
 
 add_executable(AlphaInfection src/main.cxx)
+add_library(aiConfig SHARED src/config.cxx)
 add_library(aiGame SHARED src/game.cxx)
 target_link_libraries(AlphaInfection
+	aiConfig
 	aiGame
 	${CONFIG++_LIBRARY})
 

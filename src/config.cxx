@@ -10,18 +10,19 @@
 // libconfig(++) is not THREAD-SAFE. Use this interface for providing
 // requisite locking mechanisms (mutex?)
 // configuration.writeFile
-bool ai::Config::create(void) {
+bool ai::Configuration::create(void) {
+    return false;
 };
 
 // configuration.writeFile
-bool ai::Config::update(void) {
+bool ai::Configuration::update(void) {
+    return false;
 };
 
 // configuration.readFile
-bool ai::Config::load(void) {
+bool ai::Configuration::load(void) {
     try {
-        boost::filesystem::path config_file = home / AI_CONFIG_NAME;
-        config.readFile(configFile::string());
+        config.readFile("./alpha_infection.cfg");
     } catch(const libconfig::FileIOException &fioex) {
         std::cerr << "I/O error while reading file."
                   << std::endl;
@@ -41,5 +42,6 @@ bool ai::Config::load(void) {
 };
 
 // configuration.writeFile
-bool ai::Config::save(void) {
+bool ai::Configuration::save(void) {
+    return false;
 };
