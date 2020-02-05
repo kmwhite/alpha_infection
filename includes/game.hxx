@@ -4,6 +4,8 @@
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_io.hpp>
 
+#include "engine.hxx"
+
 namespace ai {
     class Game {
         public:
@@ -36,6 +38,7 @@ namespace ai {
             std::string home;
             std::string aiId;
             libconfig::Config config;
+            ai::Engine engine;
 
             // Prototypes
             bool _initialize_game(void);

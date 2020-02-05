@@ -20,15 +20,26 @@ set(CMAKE_MODULE_PATH
 
 find_package(Boost 1.70 REQUIRED)
 find_package(Config++ REQUIRED)
+find_package(SDL2 REQUIRED)
+find_package(SDL2_image REQUIRED)
+find_package(SDL2_ttf REQUIRED)
 
 include_directories("includes"
+	${SDL2_INCLUDE_DIRS}
+	${SDL2_IMAGE_INCLUDE_DIRS}
+	${SDL2_TTF_INCLUDE_DIRS}
 	${Boost_INCLUDE_DIR}
 	${CONFIG++_INCLUDE_DIR})
 
 add_executable(AlphaInfection src/main.cxx)
 add_library(aiGame SHARED src/game.cxx)
+add_library(aiEngine SHARED src/engine.cxx)
 target_link_libraries(AlphaInfection
 	aiGame
+	aiEngine
+	${SDL2_LIBRARIES}
+	${SDL2_IMAGE_LIBRARIES}
+	${SDL2_TTF_LIBRARIES}
 	${Boost_LIBRARIES}
 	${CONFIG++_LIBRARY})
 
