@@ -1,4 +1,5 @@
 #include <iostream>
+#include <memory>
 
 #include <libconfig.h++>
 #include <boost/uuid/uuid.hpp>
@@ -11,7 +12,7 @@ namespace ai {
         public:
             // Constructor
             Game() {
-                if (_initialize_game() && _initialize_cfg()) {
+                if (_initialize_game()) {
                     std::cout << "Constructing Game(infection:"
                               << aiId
                               << ", home: "
@@ -19,9 +20,19 @@ namespace ai {
                               << ")."
                               << std::endl;
 
-                    _initialize_ui();
+                    if (_initialize_cfg()) {
+                        std::cout << "Loaded configuration!" << std::endl;
+                        if (_initialize_ui()) {
+                            std::cout << "Setup Complete!" << std::endl;
+                        } else {
+                            std::cout << "Setup Failed!" << std::endl;
+                        };
+                    } else {
+                        std::cout << "Failure to initialize config"
+                                  << std::endl;
+                    };
                 } else {
-                    std::cout << "Failure to initialize!"
+                    std::cout << "Failure to initialize game."
                               << std::endl;
                 }
             }
@@ -37,8 +48,8 @@ namespace ai {
             // Data Members
             std::string home;
             std::string aiId;
-            libconfig::Config config;
-            ai::Engine engine;
+            std::shared_ptr<libconfig::Config> config = NULL;
+            std::unique_ptr<ai::Engine> engine = NULL;
 
             // Prototypes
             bool _initialize_game(void);

@@ -15,8 +15,12 @@ bool ai::Game::_initialize_game(void) {
 };
 
 bool ai::Game::_initialize_cfg(void) {
+    std::cerr << "Loading Configuration File" << std::endl;
+    config = std::make_shared<libconfig::Config>();
+
     try {
-        config.readFile(AI_GAME_RC);
+        config->readFile(AI_GAME_RC);
+        std::cerr << "Configuration loaded!" << std::endl;
     } catch(const libconfig::FileIOException &fioex) {
         std::cerr << "I/O error while reading file."
                   << std::endl;
@@ -36,5 +40,6 @@ bool ai::Game::_initialize_cfg(void) {
 };
 
 bool ai::Game::_initialize_ui(void) {
-    return false;
+    engine = std::make_unique<ai::Engine>(config);
+    return engine->setupWasSuccessful;
 };
