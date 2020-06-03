@@ -12,6 +12,8 @@ set colorcolumn=116
 highlight OverLength ctermbg=darkgray guisp=darkgray
 match OverLength /\%117v.\+/
 
+let g:ycm_global_ycm_extra_conf = "./.ycm_extra_conf.py"
+
 "" Expose more things in NerdTree
 " Show dot-prefixed files
 let NERDTreeShowHidden=1
