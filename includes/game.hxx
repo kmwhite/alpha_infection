@@ -24,7 +24,7 @@ namespace ai {
                         std::cout << "Loaded configuration!" << std::endl;
                         if (_initialize_ui()) {
                             std::cout << "Setup Complete!" << std::endl;
-                            start_loop();
+                            engine->start_loop();
                         } else {
                             std::cout << "Setup Failed!" << std::endl;
                         };
@@ -56,7 +56,5 @@ namespace ai {
             bool _initialize_game(void);
             bool _initialize_cfg(void);
             bool _initialize_ui(void);
-            void start_loop(void);
-
     };
 }

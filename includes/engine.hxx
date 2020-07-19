@@ -28,12 +28,16 @@ namespace ai {
                           << std::endl;
             }
             bool setupWasSuccessful = false;
+            
+            void start_loop(void);
 
         private:
             std::shared_ptr<libconfig::Config> config = NULL;
             SDL_Renderer * uiRenderer = NULL;
             SDL_Window * uiWindow = NULL;
             TTF_Font * uiFont = NULL;
+            int uiWinWidth = 0;
+            int uiWinHeight = 0;
 
         void cleanup_resources();
         bool initialize_resources();
