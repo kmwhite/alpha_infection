@@ -42,15 +42,25 @@
 # (To distribute this file outside of CMake, substitute the full
 #  License text for the above reference.)
 
-find_path(SDL2_TTF_INCLUDE_DIR SDL_ttf.h
-        HINTS
-        ENV SDL2TTFDIR
-        ENV SDL2DIR
-        PATH_SUFFIXES SDL2
-        # path suffixes to search inside ENV{SDLDIR}
-        include/SDL2 include
-        PATHS ${SDL2_TTF_PATH}
-        )
+SET(SDL2_TTF_SEARCH_PATHS
+	~/Library/Frameworks
+	/Library/Frameworks
+	/usr/local
+	/usr
+	/sw # Fink
+	/opt/local # DarwinPorts
+	/opt/csw # Blastwave
+	/opt
+    ${SDL2_TTF_PATH}
+	${VCPKG_PATH}
+)
+
+FIND_PATH(SDL2_TTF_INCLUDE_DIR SDL_ttf.h
+	HINTS
+    ENV SDL2TTFDIR
+    PATH_SUFFIXES include/SDL2 include
+    PATHS ${SDL2_TTF_SEARCH_PATHS}
+)
 
 if (CMAKE_SIZEOF_VOID_P EQUAL 8)
     set(VC_LIB_PATH_SUFFIX lib/x64)
@@ -64,7 +74,7 @@ find_library(SDL2_TTF_LIBRARY
         ENV SDL2TTFDIR
         ENV SDL2DIR
         PATH_SUFFIXES lib ${VC_LIB_PATH_SUFFIX}
-        PATHS ${SDL2_TTF_PATH}
+        PATHS ${SDL2_TTF_SEARCH_PATHS}
         )
 
 if (SDL2_TTF_INCLUDE_DIR AND EXISTS "${SDL2_TTF_INCLUDE_DIR}/SDL_ttf.h")
