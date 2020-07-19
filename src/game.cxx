@@ -5,6 +5,10 @@
 #include <cstdlib>
 
 // Member Functions()
+void ai::Game::start_loop(void) {
+  std::cerr << "GAME LOOP INITIATED" << std::endl;
+};
+
 bool ai::Game::_initialize_game(void) {
     boost::uuids::uuid cfgIdAsUuid;
 
