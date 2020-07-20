@@ -37,6 +37,8 @@ include_directories("includes"
 	${Boost_INCLUDE_DIR}
 	${CONFIG++_INCLUDE_DIR})
 
+add_library(aiLogger src/logger.cxx)
+
 add_library(aiEngine src/engine.cxx)
 target_link_libraries(aiEngine
 	${Boost_LIBRARIES}
@@ -59,6 +61,7 @@ target_link_libraries(AlphaInfection
 	${SDL2_TTF_LIBRARIES}
 	${Boost_LIBRARIES}
 	${CONFIG++_LIBRARY}
+	aiLogger
 	aiGame
 	aiEngine)
 
