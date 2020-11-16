@@ -30,6 +30,7 @@ void ai::Logger::_teardown_logging(void) {
 
 void ai::Logger::_log_message(LogLevel logLevel, std::string message) {
     std::cerr << _generate_log_prefix(logLevel)
+        << " "
         << message
         << std::endl;
 }

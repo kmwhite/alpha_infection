@@ -6,6 +6,7 @@
 #include <boost/uuid/uuid_io.hpp>
 
 #include "engine.hxx"
+#include "logger.hxx"
 
 namespace ai {
     class Game {
@@ -13,37 +14,30 @@ namespace ai {
             // Constructor
             Game() {
                 if (_initialize_game()) {
-                    std::cout << "Constructing Game(infection:"
-                              << aiId
-                              << ", home: "
-                              << home
-                              << ")."
-                              << std::endl;
+                    logger.debug("Constructing Game(infection:" + aiId + ", home: " + home + ").");
 
                     if (_initialize_cfg()) {
-                        std::cout << "Loaded configuration!" << std::endl;
+                        logger.info("Loaded Configuration");
+
                         if (_initialize_ui()) {
-                            std::cout << "Setup Complete!" << std::endl;
+                            logger.info("Setup Complete!");
                             engine->start_loop();
                         } else {
-                            std::cout << "Setup Failed!" << std::endl;
+                            logger.info("Setup Failed!");
                         };
                     } else {
-                        std::cout << "Failure to initialize config"
-                                  << std::endl;
+                        logger.info("Failure to initialize config");
                     };
                 } else {
-                    std::cout << "Failure to initialize game."
-                              << std::endl;
+                    logger.info("Failure to initialize game.");
                 }
             }
 
             ~Game() {
-                std::cout << "Deconstruction Game(infection:"
-                          << aiId
-                          << ")."
-                          << std::endl;
+                logger.debug("Deconstruction Game(infection:" + aiId + ").");
             }
+
+            Logger logger;
 
         private:
             // Data Members

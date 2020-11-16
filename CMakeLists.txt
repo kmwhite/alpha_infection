@@ -23,6 +23,7 @@ set(CMAKE_MODULE_PATH
 	"${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules")
 
 find_package(Boost 1.70 REQUIRED)
+find_package(fmt REQUIRED)
 find_package(SDL2 2.0.10 REQUIRED)
 find_package(SDL2_image REQUIRED)
 find_package(SDL2_ttf REQUIRED)
@@ -44,7 +45,8 @@ target_link_libraries(aiEngine
 	${Boost_LIBRARIES}
 	${SDL2_LIBRARY}
 	${SDL2_IMAGE_LIBRARIES}
-	${SDL2_TTF_LIBRARIES})
+	${SDL2_TTF_LIBRARIES}
+	aiLogger)
 
 add_library(aiGame src/game.cxx)
 target_link_libraries(aiGame
@@ -52,7 +54,9 @@ target_link_libraries(aiGame
 	${SDL2_LIBRARY}
 	${SDL2_IMAGE_LIBRARIES}
 	${SDL2_TTF_LIBRARIES}
-	${CONFIG++_LIBRARY})
+	${CONFIG++_LIBRARY}
+	fmt::fmt
+	aiLogger)
 
 add_executable(AlphaInfection src/main.cxx)
 target_link_libraries(AlphaInfection

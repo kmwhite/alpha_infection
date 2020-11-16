@@ -2,6 +2,7 @@
 
 #include "game.hxx"
 
+#include <fmt/core.h>
 #include <cstdlib>
 
 // Member Functions()
@@ -15,23 +16,23 @@ bool ai::Game::_initialize_game(void) {
 };
 
 bool ai::Game::_initialize_cfg(void) {
-    std::cerr << "Loading Configuration File" << std::endl;
+    logger.debug("Loading Configuration File");
     config = std::make_shared<libconfig::Config>();
 
     try {
         config->readFile(AI_GAME_RC);
-        std::cerr << "Configuration loaded!" << std::endl;
+        logger.debug("Configuration loaded!");
     } catch(const libconfig::FileIOException &fioex) {
-        std::cerr << "I/O error while reading file."
-                  << std::endl;
-
+        logger.fatal("I/O error while reading file.");
         return false;
     } catch(const libconfig::ParseException &pex) {
-        std::cerr << "Parse error at "
-                  << pex.getFile()
-                  << ":" << pex.getLine()
-                  << " - " << pex.getError()
-                  << std::endl;
+        std::string errorMessage = fmt::format(
+            "Configuration {} at {}:{}",
+            pex.getError(),
+            pex.getFile(),
+            pex.getLine()
+        );
+        logger.fatal(errorMessage);
 
         return false;
     }
