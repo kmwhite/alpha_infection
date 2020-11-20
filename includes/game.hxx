@@ -14,36 +14,37 @@ namespace ai {
             // Constructor
             Game() {
                 if (_initialize_game()) {
-                    logger.debug("Constructing Game(infection:" + aiId + ", home: " + home + ").");
+                    logger->debug("Constructing Game(infection:" + aiId + ", home: " + home + ").");
 
                     if (_initialize_cfg()) {
-                        logger.info("Loaded Configuration");
+                        logger->info("Loaded Configuration");
 
                         if (_initialize_ui()) {
-                            logger.info("Setup Complete!");
+                            logger->info("Setup Complete!");
                             engine->start_loop();
                         } else {
-                            logger.info("Setup Failed!");
+                            logger->info("Setup Failed!");
                         };
                     } else {
-                        logger.info("Failure to initialize config");
+                        logger->info("Failure to initialize config");
                     };
                 } else {
-                    logger.info("Failure to initialize game.");
+                    logger->info("Failure to initialize game.");
                 }
             }
 
             ~Game() {
-                logger.debug("Deconstruction Game(infection:" + aiId + ").");
+                logger->debug("Deconstruction Game(infection:" + aiId + ").");
             }
 
-            Logger logger;
+            // Logger logger;
 
         private:
             // Data Members
             std::string home;
             std::string aiId;
             std::shared_ptr<libconfig::Config> config = NULL;
+            std::shared_ptr<ai::Logger> logger = NULL;
             std::unique_ptr<ai::Engine> engine = NULL;
 
             // Prototypes
