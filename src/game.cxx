@@ -41,6 +41,6 @@ bool ai::Game::_initialize_cfg(void) {
 };
 
 bool ai::Game::_initialize_ui(void) {
-    engine = std::make_unique<ai::Engine>(config);
+    engine = std::make_unique<ai::Engine>(config, logger);
     return engine->setupWasSuccessful;
 };

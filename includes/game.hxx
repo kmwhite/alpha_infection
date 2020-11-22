@@ -6,7 +6,6 @@
 #include <boost/uuid/uuid_io.hpp>
 
 #include "engine.hxx"
-#include "logger.hxx"
 
 namespace ai {
     class Game {
