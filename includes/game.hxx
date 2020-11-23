@@ -20,7 +20,7 @@ namespace ai {
 
                         if (_initialize_ui()) {
                             logger->info("[     game ] Setup Complete!");
-                            engine->start_loop();
+                            engine->start();
                         } else {
                             logger->info("[     game ] Setup Failed!");
                         };

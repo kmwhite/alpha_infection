@@ -19,16 +19,13 @@ namespace ai {
             Engine(std::shared_ptr<libconfig::Config> loadedConfiguration,
                    std::shared_ptr<ai::Logger> sharedLogger) {
                 logger = sharedLogger;
-
-                logger->debug("[   engine ] Set Configuration");
                 config = loadedConfiguration;
-
-                setupWasSuccessful = initialize_resources();
+                setupWasSuccessful = setup_engine_components();
             }
 
             ~Engine() {
-                logger->debug("[   engine ] Initiating Engine cleanup...");
-                if (cleanup_resources() == true) {
+                if (!setupWasSuccessful) { return; }
+                if (teardown_engine_components() == true) {
                     logger->debug("[   engine ] Cleanup complete!");
                 } else {
                     logger->fatal("[   engine ] ERROR FREEING RESOURCES");
@@ -36,7 +33,7 @@ namespace ai {
             }
             bool setupWasSuccessful = false;
             
-            void start_loop(void);
+            void start(void);
 
         private:
             std::shared_ptr<libconfig::Config> config = NULL;
@@ -46,8 +43,10 @@ namespace ai {
             TTF_Font * uiFont = NULL;
             int uiWinWidth = 0;
             int uiWinHeight = 0;
-
-        bool cleanup_resources();
-        bool initialize_resources();
+        
+            void main_loop(void);
+            bool initialize_renderer(void);
+            bool setup_engine_components(void);
+            bool teardown_engine_components(void);
     };
 }
