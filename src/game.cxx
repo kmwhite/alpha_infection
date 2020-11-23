@@ -16,23 +16,22 @@ bool ai::Game::_initialize_game(void) {
 };
 
 bool ai::Game::_initialize_cfg(void) {
-    logger->debug("Loading Configuration File");
+    logger->debug("[     game ] Loading Configuration File");
     config = std::make_shared<libconfig::Config>();
 
     try {
         config->readFile(AI_GAME_RC);
-        logger->debug("Configuration loaded!");
+        logger->debug("[     game ] Configuration loaded!");
     } catch(const libconfig::FileIOException &fioex) {
-        logger->fatal("I/O error while reading file.");
+        logger->fatal("[     game ] I/O error while reading file.");
         return false;
     } catch(const libconfig::ParseException &pex) {
-        std::string errorMessage = fmt::format(
-            "Configuration {} at {}:{}",
+        logger->fatal(fmt::format(
+            "[     game ] Configuration {} at {}:{}",
             pex.getError(),
             pex.getFile(),
             pex.getLine()
-        );
-        logger->fatal(errorMessage);
+        ));
 
         return false;
     }

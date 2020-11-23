@@ -1,6 +1,8 @@
 #include "engine.hxx"
 
-void ai::Engine::cleanup_resources(void) {
+#include <fmt/core.h>
+
+bool ai::Engine::cleanup_resources(void) {
     TTF_CloseFont(uiFont);
     uiFont = NULL;
 
@@ -15,6 +17,8 @@ void ai::Engine::cleanup_resources(void) {
     IMG_Quit();
     SDL_AudioQuit();
     SDL_Quit();
+
+    return true;
 };
 
 void ai::Engine::start_loop(void) {
@@ -45,21 +49,21 @@ void ai::Engine::start_loop(void) {
 
     // Start playing background music
     if (SDL_LoadWAV("./assets/menu/bg.wav", &wavSpec, &wavBuffer, &wavLength) == NULL) {
-        logger->error("Wav file could not be loaded");
+        logger->error("[   engine ] Wav file could not be loaded");
     }
     deviceId = SDL_OpenAudioDevice(NULL, 0, &wavSpec, NULL, SDL_AUDIO_ALLOW_ANY_CHANGE);
     if (deviceId == 0) {
-        logger->error(std::string("Failed to open audio: "));
-        logger->error(std::string(SDL_GetError()));
+        
+        logger->error("[   engine ] Failed to open audio: ");
+        logger->error(SDL_GetError());
     } else {
         // open audio device
         int success = SDL_QueueAudio(deviceId, wavBuffer, wavLength);
         if (success == 0) {
             SDL_PauseAudioDevice(deviceId, 0);
         } else {
-            logger->error(std::string("Failed to queue music!"));
-            logger->debug(std::string("Expecting 0, received "));
-            logger->debug(std::to_string(success));
+            logger->error("[   engine ] Failed to queue music!");
+            logger->debug(fmt::format("[   engine ] Expecting 0, received {}", success));
         }
     }
 
@@ -73,14 +77,14 @@ void ai::Engine::start_loop(void) {
         while (SDL_PollEvent(&event)) {
             switch (event.type) {
                 case SDL_QUIT:
-                    logger->info("Received SDL_QUIT event");
+                    logger->info("[   engine ] Received SDL_QUIT event");
                     runMainLoop = false;
                     break;
                 case SDL_KEYDOWN:
                     logger->info(SDL_GetKeyName(event.key.keysym.sym));
                     break;
                 case SDL_KEYUP:
-                    logger->info("Released!");
+                    logger->info("[   engine ] Released!");
                     break;
                 default:
                     runMainLoop = true;
@@ -92,15 +96,19 @@ void ai::Engine::start_loop(void) {
     SDL_CloseAudioDevice(deviceId);
     SDL_FreeWAV(wavBuffer);
     SDL_DestroyTexture(menuBg);
-    SDL_DestroyTexture(textTexture);
-    SDL_FreeSurface(textSurface);
     menuBg = NULL;
+
+    SDL_DestroyTexture(textTexture);
+    textTexture = NULL;
+
+    SDL_FreeSurface(textSurface);
+    textSurface = NULL;
 }
 
 bool ai::Engine::initialize_resources(void) {
     // Initialize SDL
     if (SDL_Init(SDL_INIT_TIMER|SDL_INIT_VIDEO|SDL_INIT_AUDIO) < 0) {
-        logger->error("SDL failed initialization! SDL_Error: ");
+        logger->error("[   engine ] SDL failed initialization! SDL_Error: ");
         logger->error(SDL_GetError());
         return false;
     }
@@ -108,7 +116,7 @@ bool ai::Engine::initialize_resources(void) {
     // Image Rendering
     int sdlImageFlags = IMG_INIT_JPG;
     if (!(IMG_Init(sdlImageFlags) & sdlImageFlags)) {
-        logger->error("SDL_image initialization failed! SDL_image Error:");
+        logger->error("[   engine ] SDL_image initialization failed! SDL_image Error:");
         logger->error(IMG_GetError());
 
         return false;
@@ -116,12 +124,12 @@ bool ai::Engine::initialize_resources(void) {
 
     // Set texture filtering to linear
     if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
-        logger->warn("Linear texture filtering not enabled!");
+        logger->warn("[   engine ] Linear texture filtering not enabled!");
     }
 
     // True-Type Fonts
     if (TTF_Init() == -1) {
-        logger->error("SDL_ttf initialization failed! SDL_ttf Error:");
+        logger->error("[   engine ] SDL_ttf initialization failed! SDL_ttf Error:");
         logger->error(TTF_GetError());
 
         return false;
@@ -140,20 +148,29 @@ bool ai::Engine::initialize_resources(void) {
         SDL_WINDOW_SHOWN
     );
     if (uiWindow == NULL) {
-        logger->error("Window could not be created! SDL_Error: ");
-        logger->error(SDL_GetError());
+        logger->error(fmt::format(
+            "[   engine ] {} {}",
+            "Window could not be created! SDL_Error:",
+            SDL_GetError()
+        ));
 
         return false;
     } else {
-        logger->debug("WINDOW IS NOT NULL: ");
-        logger->debug(SDL_GetWindowTitle(uiWindow));
+        logger->debug(fmt::format(
+            "[   engine ] {} {}",
+            "WINDOW IS NOT NULL:",
+            SDL_GetWindowTitle(uiWindow)
+        ));
     }
 
     // Create renderer
     uiRenderer = SDL_CreateRenderer(uiWindow, -1, SDL_RENDERER_SOFTWARE);
     if (uiRenderer == NULL) {
-        logger->error("Renderer could not be created! SDL Error: ");
-        logger->error(SDL_GetError());
+        logger->error(fmt::format(
+            "[   engine ] {} {}",
+            "Renderer could not be created! SDL Error:",
+            SDL_GetError()
+        ));
 
         return false;
     }

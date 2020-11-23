@@ -13,30 +13,28 @@ namespace ai {
             // Constructor
             Game() {
                 if (_initialize_game()) {
-                    logger->debug("Constructing Game(infection:" + aiId + ", home: " + home + ").");
+                    logger->debug("[     game ] Constructing Game(infection:" + aiId + ", home: " + home + ").");
 
                     if (_initialize_cfg()) {
-                        logger->info("Loaded Configuration");
+                        logger->info("[     game ] Loaded Configuration");
 
                         if (_initialize_ui()) {
-                            logger->info("Setup Complete!");
+                            logger->info("[     game ] Setup Complete!");
                             engine->start_loop();
                         } else {
-                            logger->info("Setup Failed!");
+                            logger->info("[     game ] Setup Failed!");
                         };
                     } else {
-                        logger->info("Failure to initialize config");
+                        logger->info("[     game ] Failure to initialize config");
                     };
                 } else {
-                    logger->info("Failure to initialize game.");
+                    logger->info("[     game ] Failure to initialize game.");
                 }
             }
 
             ~Game() {
-                logger->debug("Deconstruction Game(infection:" + aiId + ").");
+                logger->debug("[     game ] Deconstruction Game(infection:" + aiId + ").");
             }
-
-            // Logger logger;
 
         private:
             // Data Members

@@ -20,15 +20,19 @@ namespace ai {
                    std::shared_ptr<ai::Logger> sharedLogger) {
                 logger = sharedLogger;
 
-                logger->debug("Set Configuration");
+                logger->debug("[   engine ] Set Configuration");
                 config = loadedConfiguration;
 
                 setupWasSuccessful = initialize_resources();
             }
 
             ~Engine() {
-                cleanup_resources();
-                logger->debug("Free Configuration");
+                logger->debug("[   engine ] Initiating Engine cleanup...");
+                if (cleanup_resources() == true) {
+                    logger->debug("[   engine ] Cleanup complete!");
+                } else {
+                    logger->fatal("[   engine ] ERROR FREEING RESOURCES");
+                }
             }
             bool setupWasSuccessful = false;
             
@@ -43,7 +47,7 @@ namespace ai {
             int uiWinWidth = 0;
             int uiWinHeight = 0;
 
-        void cleanup_resources();
+        bool cleanup_resources();
         bool initialize_resources();
     };
 }
