@@ -3,6 +3,8 @@
 #include <fmt/core.h>
 
 bool ai::Engine::setup_engine_components(void) {
+    _initialize_display_cfg();
+
     // Initialize SDL
     if (SDL_Init(SDL_INIT_TIMER|SDL_INIT_VIDEO|SDL_INIT_AUDIO) < 0) {
         logger->error(fmt::format(
@@ -48,7 +50,7 @@ bool ai::Engine::setup_engine_components(void) {
                 "TTF_OpenFont: {}}",
                 TTF_GetError()
             ));
-            
+
             return false;
         } else {
           logger->debug("[   engine ] uiFont font loaded");
@@ -80,6 +82,7 @@ bool ai::Engine::teardown_engine_components(void) {
 };
 
 void ai::Engine::start(void) {
+    // load_resource_map(); // load a WAD-like file to determine the game to play and assets to
     initialize_renderer();
 
     // Menu Variables
@@ -95,8 +98,8 @@ void ai::Engine::start(void) {
 
     // Create a placement rectangle defining where to put the textTexture
     SDL_Rect textPlacement = {
-        (AI_WINDOW_WIDTH_DEFAULT - textWidth) / 2, // X-start
-        (AI_WINDOW_HEIGHT_DEFAULT / 8), // Y-start
+        (displayCfg.width - textWidth) / 2, // X-start
+        (displayCfg.height / 8), // Y-start
         textWidth,
         textHeight
     };
@@ -153,8 +156,8 @@ bool ai::Engine::initialize_renderer(void) {
         AI_WINDOW_TITLE,
         SDL_WINDOWPOS_UNDEFINED,
         SDL_WINDOWPOS_UNDEFINED,
-        AI_WINDOW_WIDTH_DEFAULT,
-        AI_WINDOW_HEIGHT_DEFAULT,
+        displayCfg.width,
+        displayCfg.height,
         SDL_WINDOW_SHOWN
     );
     if (uiWindow == NULL) {
@@ -220,3 +223,16 @@ void ai::Engine::main_loop(void) {
         }
     }
 };
+
+void ai::Engine::_initialize_display_cfg(void) {
+    int width = 0;
+    int height = 0;
+    bool fullScreen = false;
+
+    config->lookupValue("application.window.width", width);
+	displayCfg.width = width;
+    config->lookupValue("application.window.height", height);
+	displayCfg.height = height;
+    config->lookupValue("application.window.fullScreen", fullScreen);
+	displayCfg.fullScreen = fullScreen;
+}

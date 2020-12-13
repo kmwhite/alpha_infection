@@ -14,6 +14,12 @@
 #define AI_WINDOW_HEIGHT_DEFAULT 480
 
 namespace ai {
+    struct displayCfg_t {
+        int width;
+        int height;
+        bool fullScreen;
+    };
+
     class Engine {
         public:
             Engine(std::shared_ptr<libconfig::Config> loadedConfiguration,
@@ -32,7 +38,6 @@ namespace ai {
                 }
             }
             bool setupWasSuccessful = false;
-            
             void start(void);
 
         private:
@@ -41,12 +46,16 @@ namespace ai {
             SDL_Renderer * uiRenderer = NULL;
             SDL_Window * uiWindow = NULL;
             TTF_Font * uiFont = NULL;
-            int uiWinWidth = 0;
-            int uiWinHeight = 0;
-        
+            ai::displayCfg_t displayCfg = {
+                AI_WINDOW_WIDTH_DEFAULT,
+                AI_WINDOW_HEIGHT_DEFAULT,
+                false
+            };
+
             void main_loop(void);
             bool initialize_renderer(void);
             bool setup_engine_components(void);
             bool teardown_engine_components(void);
+            void _initialize_display_cfg(void);
     };
 }
