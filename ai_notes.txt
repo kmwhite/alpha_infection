@@ -1,0 +1,57 @@
+Player:
+  name: String describing user
+  secretCode: uint
+  defaultHealth
+  Health: int 100
+  Armor:
+  AccessKeys:
+    orangeKey:
+    greenKey:
+    purpleKey:
+  Storage: Array<ai::Game::Item::StorableItem>
+  Upgrades:
+    upgradeType: enum(0 - false, 1 - lvl1, 2 - lvl2, ... 10 - lvl10)
+    ...
+    hasProbe: Boolean
+    HealthPerk: Enum
+    ArmorPerk: Enum
+
+Item:
+  Name: String describing Item
+  Type: Enumeration<Integer> (Upgrade|Storable|Consumable)
+  Description: Text describing Item
+
+storableItemsDB:
+  - name: Signaling Pack
+    description: Allows for entry of a "secret code" and joins "secret code radio" at the end of each turn to locate the virus
+  - name: Ion Laser
+    description: Allows attack on the Virus by disabling the machine containing it via blasting it with a controlled EMP
+  - name: Phase Multiplier
+    description: ...
+
+map:
+  - infectionSite: roomId (determined by randomly finding room)
+  - timer: (20 + 2^x) * 60 [ algo in min, *60 to sec ]
+  - difficulty: Enum(Easy, Normal, Hard, Ridiculous)
+  - grid:
+      spots: Algo -> (8 ** Difficulty) + 32
+  - GridPoint:
+      Id:
+      Wing:
+      accessKeyRequired: Enum(False, Orange, Green, Purple)
+
+class Player:
+  def process_turn(character):
+    allow_movement
+    allow_exploration
+    check_for_attack
+    if has_signaling_pack?:
+      play_secret_radio_tune
+
+  def take_turn:
+    process_turn(engineer)
+    process_turn(probe) if has_probe?
+
+
+
+TODO: FIGURE OUT METHOD OF ALIEN INFECTION ATTACKS
