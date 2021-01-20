@@ -6,8 +6,8 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/output)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/output)
 # set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-set(VCPKG_PATH "C:\\Users\\me\\Downloads\\vcpkg-2020.06\\vcpkg-2020.06\\installed\\x86-windows\\")
-set(BOOST_ROOT "C:\\Users\\me\\Downloads\\vcpkg-2020.06\\vcpkg-2020.06\\installed\\x86-windows\\include")
+#set(VCPKG_PATH "C:\\Users\\me\\Downloads\\vcpkg-2020.06\\vcpkg-2020.06\\installed\\x86-windows\\")
+#set(BOOST_ROOT "C:\\Users\\me\\Downloads\\vcpkg-2020.06\\vcpkg-2020.06\\installed\\x86-windows\\include")
 
 # set the C++17 standard
 set(CMAKE_CXX_STANDARD 17)
