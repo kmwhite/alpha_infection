@@ -12,9 +12,9 @@ Copy-Paste Ready Command:
 
     sudo apt-get install \
         libsdl2{,-net,-ttf,-mixer,-gfx,-image}-dev \
-        cmake libconfuse-dev doxygen \
+        cmake libconfig-dev doxygen \
         clang-8{,-doc} clang-{tools,tidy}-8 lldb-8 \
-        libboost1.67-all-dev
+        libboost1.67-all-dev libfmt-dev
 
 
 Explanations:

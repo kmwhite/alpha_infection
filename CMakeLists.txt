@@ -22,7 +22,7 @@ set(CMAKE_MODULE_PATH
 	${CMAKE_MODULE_PATH}
 	"${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules")
 
-find_package(Boost 1.70 REQUIRED)
+find_package(Boost 1.67 REQUIRED)
 find_package(fmt REQUIRED)
 find_package(SDL2 2.0.10 REQUIRED)
 find_package(SDL2_image REQUIRED)
