@@ -12,6 +12,7 @@
 #define AI_WINDOW_TITLE "AlphaInfection"
 #define AI_WINDOW_WIDTH_DEFAULT 640
 #define AI_WINDOW_HEIGHT_DEFAULT 480
+#define AI_CFG_SKIP_UI "application.skip_ui"
 
 namespace ai {
     struct displayCfg_t {
@@ -30,7 +31,6 @@ namespace ai {
             }
 
             ~Engine() {
-                if (!setupWasSuccessful) { return; }
                 if (teardown_engine_components() == true) {
                     logger->debug("[   engine ] Cleanup complete!");
                 } else {
