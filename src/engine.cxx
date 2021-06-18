@@ -1,4 +1,5 @@
 #include "engine.hxx"
+#include "engine/resources.hxx"
 
 #include <fmt/core.h>
 
