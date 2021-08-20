@@ -1,7 +1,0 @@
-[requires]
-boost/1.74.0
-fmt/7.1.2
-sdl2/2.0.12@bincrafters/stable 
-
-[generators]
-cmake
