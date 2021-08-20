@@ -1,3 +1,6 @@
+#ifndef AI_LOGGER_H
+#define AI_LOGGER_H
+
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -32,3 +35,5 @@ namespace ai {
             std::fstream logFile;
     };
 } // namespace ai
+
+#endif
