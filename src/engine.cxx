@@ -170,6 +170,8 @@ void ai::Engine::start(void) {
 
 bool ai::Engine::initialize_renderer(void) {
     // Create window
+    if (displayCfg.useWindowedMode) {
+    // Create window
     uiWindow = SDL_CreateWindow(
         AI_WINDOW_TITLE,
         SDL_WINDOWPOS_UNDEFINED,
@@ -178,6 +180,18 @@ bool ai::Engine::initialize_renderer(void) {
         displayCfg.height,
         SDL_WINDOW_SHOWN
     );
+    } else {
+    // Create window
+    uiWindow = SDL_CreateWindow(
+        AI_WINDOW_TITLE,
+        SDL_WINDOWPOS_UNDEFINED,
+        SDL_WINDOWPOS_UNDEFINED,
+        displayCfg.width,
+        displayCfg.height,
+        SDL_WINDOW_FULLSCREEN | SDL_WINDOW_BORDERLESS
+    );
+    }
+
     if (uiWindow == NULL) {
         logger->error(fmt::format(
             "[   engine ] {} {}",
@@ -245,12 +259,12 @@ void ai::Engine::main_loop(void) {
 void ai::Engine::_initialize_display_cfg(void) {
     int width = 0;
     int height = 0;
-    bool fullScreen = false;
+    bool useWindowedMode = false;
 
     config->lookupValue("application.window.width", width);
 	displayCfg.width = width;
     config->lookupValue("application.window.height", height);
 	displayCfg.height = height;
-    config->lookupValue("application.window.fullScreen", fullScreen);
-	displayCfg.fullScreen = fullScreen;
+    config->lookupValue("application.window.use_windowed_mode", useWindowedMode);
+	displayCfg.useWindowedMode = useWindowedMode;
 }

@@ -18,7 +18,7 @@ namespace ai {
     struct displayCfg_t {
         int width;
         int height;
-        bool fullScreen;
+        bool useWindowedMode;
     };
 
     class Engine {
