@@ -10,6 +10,7 @@
 #include "logger.hxx"
 
 #define AI_WINDOW_TITLE "AlphaInfection"
+#define AI_MENU_TITLE "Alpha Infection"
 #define AI_WINDOW_WIDTH_DEFAULT 640
 #define AI_WINDOW_HEIGHT_DEFAULT 480
 #define AI_CFG_SKIP_UI "application.skip_ui"

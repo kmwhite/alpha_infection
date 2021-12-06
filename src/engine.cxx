@@ -102,7 +102,7 @@ void ai::Engine::start(void) {
 
         // Menu Variables
         SDL_Color textColor = { 0x00, 0x00, 0x00 };
-        SDL_Surface * textSurface = TTF_RenderText_Solid(uiFont, AI_WINDOW_TITLE, textColor);
+        SDL_Surface * textSurface = TTF_RenderText_Solid(uiFont, AI_MENU_TITLE, textColor);
         SDL_Texture * textTexture = SDL_CreateTextureFromSurface(uiRenderer, textSurface);
         SDL_Texture * menuBg = IMG_LoadTexture(uiRenderer, "./assets/menu/bg.jpg");
         int textWidth = 0;
