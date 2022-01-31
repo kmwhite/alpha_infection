@@ -9,12 +9,17 @@ This project started becasue I wanted to grow my C skills and have always wanted
 
 ## Requirements
 Copy-Paste Ready Command:
+Ubuntu:
 
     sudo apt-get install \
         libsdl2{,-net,-ttf,-mixer,-gfx,-image}-dev \
         cmake libconfig-dev doxygen \
         clang-8{,-doc} clang-{tools,tidy}-8 lldb-8 \
         libboost1.67-all-dev libfmt-dev
+
+MSYS2:
+
+     pacman -S --needed base-devel mingw-w64-x86_64-{boost,fmt,gcc,libconfig,SDL2,SDL2_net,SDL2_ttf,SDL2_mixer,SDL2_mixer,SDL2_image,cmake,extra-cmake-modules} git vim{,pager} cmake
 
 
 Explanations:
